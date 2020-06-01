@@ -4,7 +4,7 @@ class LokaliseService
   def initialize(client_id, project_id)
     client_id ||= Rails.application.credentials.client_id
     @client = Lokalise.client(client_id)
-    @project_id =  project_id.presence || Rails.application.credentials.project_id
+    @project_id = project_id.presence || Rails.application.credentials.project_id
   end
 
   def generate_keys(json, parent = 'BMI')
@@ -27,9 +27,13 @@ class LokaliseService
     key_id_info(resp, keys_arr)
   end
 
-  def keys_params(json lang = 'en')
+  def keys_params(json, lang = 'en')
     generate_keys(json).map do |k, v|
-      { "key_name": k, "platforms": ["ios", "android", "web", "other"], "translations": [{ "language_iso": lang, "translation": v }] }
+      {
+        key_name: { ios: k, android: k, web: k, other: k },
+        platforms: %w[ios android web other],
+        translations: [{ language_iso: lang, translation: v }]
+      }
     end
   end
 

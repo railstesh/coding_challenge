@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   root 'tools#index'
   resources :tools do
     get :update_translation, on: :member
+    post :webhook, on: :collection
   end
 end

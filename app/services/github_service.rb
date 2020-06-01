@@ -25,4 +25,27 @@ class GithubService
       end
     end
   end
+
+  # if you face any problem in pushing, add your ssh to gitHub
+    def create_push_branch(branch)
+      `git checkout -b #{branch}`
+
+      `git add #{branch}`
+
+      `git commit -m 'Update translation'`
+
+      `git push origin #{branch}`
+    end
+
+    def create_pr(branch)
+      options = { 'title': branch,
+                  'body': 'Please pull these updated translation changes in!',
+                  'head': branch, 'base': 'master' }
+      HTTParty.post(
+        "https://api.github.com/repos/#{username}/#{repo}/pulls",
+        basic_auth: { username: username,
+                      password: Rails.application.credentials.git_hub[:password] },
+        body: options.to_json
+      )
+    end
 end
