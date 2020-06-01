@@ -1,0 +1,21 @@
+<%= form_with(model: tool, local: true) do |form| %>
+  <% if tool.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tool.errors.count, "error") %> prohibited this tool from being saved:</h2>
+
+      <ul>
+      <% tool.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :language %>
+  <%= form.text_field :language %>
+  <%= form.submit "#{params[:action].eql?('new') ? 'Create' : 'Update'} Tool" %>
+  <%= link_to 'Cancel', tools_path %>
+<% end %>

@@ -1,0 +1,6 @@
+<div>
+  <p>Name: <%= @tool.name %></p>
+  <p>Language: <%= @tool.language %></p>
+  <p>JSON spec: <%= @tool.json_spec %></p>
+</div>
+<%= link_to 'Back', tools_path %> | <%= link_to 'edit', edit_tool_path(@tool) %>

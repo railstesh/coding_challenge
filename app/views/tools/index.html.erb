@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Language</th>
+      <th>JSON Spec</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'tool', collection: @tools %>
+  </tbody>
+</table>
+
+<%= link_to 'New Tool', new_tool_path %>
