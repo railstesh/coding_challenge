@@ -19,9 +19,9 @@ class Tool < ApplicationRecord
       write_value(spec_data, key, translation)
     end
 
-    file = File.open("#{name}.#{language}.json", 'w')
-    file.puts spec_data
-    file.close
+    file = File.open("#{name}.#{language}.json", 'w') do |f|
+      f.write(JSON.pretty_generate(spec_data))
+    end
 
     branch_name = "tool-#{id}-#{name}.#{language}.json"
     github.create_push_branch(branch_name)

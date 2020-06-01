@@ -62,7 +62,7 @@ class ToolsController < ApplicationController
       # title will be like: tool-1-BMI.en.json | tool-<id>-<file_name>
       title = pr[:title]
       id = title.split('-')[1]
-      file_name = title.sub(/.*-\d-/, '')
+      file_name = title.sub(/.*-\d*-/, '')
       file_content = JSON.parse(File.read(file_name))
       tool = Tool.find(id)
       tool.update_attribute(:json_spec, file_content)
