@@ -17,6 +17,9 @@ class ToolsController < ApplicationController
     respond_to do |format|
       if @tool.save
         format.html do
+          spec_data = GithubService.new('railstesh', 'coding_challenge').read_file(@tool.name, @tool.language)
+          keys_data = LokaliseService.new.create_keys(spec_data, @tool.language)
+          @tool.update(json_spec: spec_data, key_info: keys_data)
           redirect_to @tool, notice: 'Tool created successfully'
         end
       else
@@ -46,7 +49,10 @@ class ToolsController < ApplicationController
     redirect_to tools_path
   end
 
-  def update_translation; end
+  def update_translation
+    @tool.update_translation
+    redirect_to tools_path
+  end
 
   private
 
