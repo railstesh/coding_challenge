@@ -2,8 +2,9 @@ class Tool < ApplicationRecord
   validates :name, :language, presence: true
 
   def update_translation
+    # can be replaced with your username, repository name
     github = GithubService.new('railstesh', 'coding_challenge')
-    lokalise = LokaliseService.new(nil, nil)
+    lokalise = LokaliseService.new('79f58e3b769ce941f75bab97d7fb17f118cf5524', '944415995ecebd933b7b96.13035535')
     spec_data = github.read_file(name, language)
 
     # handle a special key 'tool_version'
