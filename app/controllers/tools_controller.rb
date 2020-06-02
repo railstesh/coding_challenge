@@ -51,8 +51,9 @@ class ToolsController < ApplicationController
   end
 
   def update_translation
-    @tool.update_translation
-    redirect_to tools_path
+    LokaliseJob.perform_later(@tool.id)
+    redirect_to tools_path,
+                notice: 'Updating process has initiated. It can take up to 5 minutes.'
   end
 
   # https://coding_challenge.ngrok.io/tools/webhook
